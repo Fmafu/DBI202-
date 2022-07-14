@@ -202,3 +202,4 @@ VALUES
 ('vandt',N'Do Thi','Van',0,'2016-12-09','vandt4@fe.edu.vn',40),
 ('TungHT22',N'Hoang Thanh','Tung',1,'2019-04-28','TungHT22@fe.edu.vn',50),
 ('bantq6969',N'Tran Quy','Ban',1,'2010-01-25','bantq6969@fpt.edu.vn',60)
+
