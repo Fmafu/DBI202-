@@ -1,22 +1,22 @@
 # DBI202-Asg
-Student Grading Management Sub-System
+## Student Grading Management Sub-System
 
 
 [Quan Ly Diem.docx](https://github.com/Fmafu/DBI202-Asg/files/9126010/Quan.Ly.Diem.docx)
 
-For each subject that attended by the student, the lecture will give score to the assessment to each of their assessment. Below figure shows an Example of the assessments for course DBI202.
+### For each subject that attended by the student, the lecture will give score to the assessment to each of their assessment. Below figure shows an Example of the assessments for course DBI202.
 
 ![image](https://user-images.githubusercontent.com/107658869/179359248-c74ac7dd-d4ac-49de-aef1-62775ef65fd2.png)
 
-Students can check their results at the end of semester as following example:
+### Students can check their results at the end of semester as following example:
 
 ![image](https://user-images.githubusercontent.com/107658869/179359223-50a6891f-51c0-43e2-be94-cbf4d6e55d8b.png)
 
-Each Subject code, student can check their detailed result of as below example:
+### Each Subject code, student can check their detailed result of as below example:
 
 ![image](https://user-images.githubusercontent.com/107658869/179359267-3f8d3b83-d1cd-46fe-9e60-3b4235d42e21.png)
 
-2> The database must consist of at least six tables that have been populated with data. The database is to support queries that would typically be submitted to the system for the topical area that you have chosen. You must do the following:
+### 2> The database must consist of at least six tables that have been populated with data. The database is to support queries that would typically be submitted to the system for the topical area that you have chosen. You must do the following:
  Self-investigation for the requirement of the system. Listed them all as form of reports, business rules.
  
 ·	Using UML, Chen’s notation to create an Entity Relationship (ER) model for your relational database. All entity types, their attributes and relationships must be clearly shown. You will also be required to show all cardinality and participation constraints. You should use some enhanced ER features in your conceptual model where it makes sense to do so.
@@ -34,7 +34,7 @@ Each Subject code, student can check their detailed result of as below example:
 
 •	Create 10 sample queries that demonstrate the expressiveness of your database system. Your queries must demonstrate different aspects of the system.
  
-Final Report
+## Final Report
 
 You must submit a brief final report which must include the following:
 a)      A brief description of the database including any assumptions made during the design (THIS IS VERY IMPORTANT TO CLERIFY THE ASSUMTIONS in form of business rules).
