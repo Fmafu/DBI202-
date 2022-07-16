@@ -74,11 +74,12 @@ CREATE TABLE Assessment(
 	Category VARCHAR(40) NOT NULL FOREIGN KEY REFERENCES Element(Category),
 	[Type] NVARCHAR(15) NOT NULL,
 	Part INT NOT NULL,
-	[Weight] Float check([Weight]<1 and [Weight]>0) NOT NULL,
+	[Weight] Float check([Weight]<=1 and [Weight]>0) NOT NULL,
 	[Completion Criteria] INT NOT NULL,
 	[No Question] INT,
 	
 )
+
 
 CREATE TABLE Process(
 	StudentID VARCHAR(25) NOT NULL FOREIGN KEY REFERENCES Student(StudentID),
@@ -90,16 +91,14 @@ CREATE TABLE Process(
 
 
 CREATE TABLE Result(
-	ResultID INT NOT NULL,
+	StudentID VARCHAR(25) NOT NULL FOREIGN KEY REFERENCES Student(StudentID),
 	AssessmentID INT NOT NULL FOREIGN KEY REFERENCES Assessment(AssessmentID),
-	CONSTRAINT pk_OutputID_Graded_by_AssessmentID PRIMARY KEY (ResultID,AssessmentID),
+	CONSTRAINT pk_OutputID_Graded_by_AssessmentID PRIMARY KEY (StudentID,AssessmentID),
 	[Day of publication] DATE NOT NULL,
 	Mark FLOAT,
 	[Status] BIT,
 )
 
-select * from Assessment
-select * from Student
 
 --insert data
 
@@ -190,9 +189,7 @@ insert into Student values
 ('HE163693',N'Dao Vu','Hiep','2002-12-10',1,N'IA','HE163693@fpt.edu.vn',50),
 ('HE163581',N'Nguyen Van','Vuong','2002-11-11',1,'AI','vuongvnhe163581@fpt.edu.vn',55)
 
-select * from Major
-select * from Student
-select * from Lecture
+
 --4 insert leture
 INSERT INTO Lecture
 VALUES
@@ -203,7 +200,7 @@ VALUES
 ('TungHT22',N'Hoang Thanh','Tung','2019-04-28',1,'TungHT22@fe.edu.vn',50),
 ('bantq6969',N'Tran Quy','Ban','2010-01-25',1,'bantq6969@fpt.edu.vn',60),
 ('DucHM29',N'Hoang Manh','Duc','2007-10-9',1,'DucHM29@fe.edu.vn',15)
-select * from Lecture
+
 --5. INSERT DEPARTMENT
 INSERT INTO DEPARTMENT
 VALUES
@@ -222,7 +219,7 @@ VALUES
 ('LAB211',N'Object Oriented Programming practices with JAVA',30,'IT',3),
 ('WED201c',N'Web design',5,'IT',3),
 ('IAO202','Introduction to Information Assurance',30,'IT',3)
-SELECT * FROM Course
+
 
 --7 INSERT GROUP
 SELECT * FROM [Group]
@@ -235,7 +232,7 @@ VALUES
 ('IA1604_IAO202','IAO202','DucHM29')
 
 --8 insert studentGroup
-select * from StudentGroup
+
 INSERT INTO StudentGroup
 VALUES
 --CSD
@@ -320,30 +317,339 @@ VALUES
 (N'IAO202_pe','IAO202','2022-07-16','2022-07-16'),
 (N'IAO202_fe','IAO202','2022-08-02','2022-08-02')
 
-SELECT * FROM Element
+
 
 --9 insert Assessment
 INSERT INTO Assessment(Category,[Type],Part,[Weight],[Completion Criteria],[No Question])
 
 VALUES
-('CSD201_as','on-going',2,20.00,0,null),
-('CSD201_fe',N'final exam',1,30.00,4,50),
-('CSD201_pe','on-going',1,30.00,0,4),
-('CSD201_pt','quiz',2,20.00,0,30),
+('CSD201_as','on-going',2,0.2,0,null),
+('CSD201_fe',N'final exam',1,0.3,4,50),
+('CSD201_pe','on-going',1,0.3,0,4),
+('CSD201_pt','quiz',2,0.2,0,30),
 
-('DBI202_as','on-going',1,20.00,0,null),
-('DBI202_fe',N'final exam',1,30.00,4,50),
-('DBI202_lab','on-going',5,10.00,4,null),
-('DBI202_pe','on-going',1,30.00,0,null),
-('DBI202_pt','on-going',2,10.00,0,20),
+('DBI202_as','on-going',1,0.2,0,null),
+('DBI202_fe',N'final exam',1,0.3,4,50),
+('DBI202_lab','on-going',5,0.1,4,null),
+('DBI202_pe','on-going',1,0.3,0,null),
+('DBI202_pt','on-going',2,0.1,0,20),
 
-('JPD113_fe',N'final exam',2,40.00,4,null),
-('JPD113_mt','on-going',1,30.00,0,45),
-('JPD113_pt','on-going',2,20.00,0,20),
-('JPD113_ptcpt','on-going',1,10.00,750,null),
+('JPD113_fe',N'final exam',2,0.4,4,null),
+('JPD113_mt','on-going',1,0.3,0,45),
+('JPD113_pt','on-going',2,0.2,0,20),
+('JPD113_ptcpt','on-going',1,0.1,750,null),
 
-('LAB211_pratices','on-going',1,100.00,0,null),
+('LAB211_pratices','on-going',1,1,0,null),
 
-('WED201c_fe',N'final exam',1,50.00,4,null),
-('WED201c_pe',N'final exam',1,50.00,4,60)
+('IAO202_as','on-going',1,0.2,0,null),
+('IAO202_fe',N'final exam',1,0.3,4,50),
+('IAO202_pe','on-going',1,0.3,0,null),
+('IAO202_pt','on-going',2,0.1,0,20)
 select * from Assessment
+
+--10 insert process
+INSERT INTO Process
+VALUES
+('HE160318','CSD201_as',1),
+('HE160318','CSD201_fe',0),
+('HE160318','CSD201_pe',0),
+('HE160318','CSD201_pt',1),
+('HE160318','DBI202_as',0),
+('HE160318','DBI202_fe',0),
+('HE160318','DBI202_lab',1),
+('HE160318','DBI202_pe',0),
+('HE160318','DBI202_pt',1),
+('HE160318','JPD113_fe',0),
+('HE160318','JPD113_mt',1),
+('HE160318','JPD113_pt',1),
+('HE160318','JPD113_ptcpt',1),
+('HE160318','LAB211_pratices',0),
+
+('HE160136','CSD201_as',1),
+('HE160136','CSD201_fe',0),
+('HE160136','CSD201_pe',0),
+('HE160136','CSD201_pt',1),
+('HE160136','DBI202_as',0),
+('HE160136','DBI202_fe',0),
+('HE160136','DBI202_lab',1),
+('HE160136','DBI202_pe',0),
+('HE160136','DBI202_pt',1),
+('HE160136','JPD113_fe',0),
+('HE160136','JPD113_mt',1),
+('HE160136','JPD113_pt',1),
+('HE160136','JPD113_ptcpt',1),
+('HE160136','LAB211_pratices',0),
+
+('HE160594','CSD201_as',1),
+('HE160594','CSD201_fe',0),
+('HE160594','CSD201_pe',0),
+('HE160594','CSD201_pt',1),
+('HE160594','DBI202_as',0),
+('HE160594','DBI202_fe',0),
+('HE160594','DBI202_lab',1),
+('HE160594','DBI202_pe',0),
+('HE160594','DBI202_pt',1),
+('HE160594','JPD113_fe',0),
+('HE160594','JPD113_mt',1),
+('HE160594','JPD113_pt',1),
+('HE160594','JPD113_ptcpt',0),
+('HE160594','LAB211_pratices',0),
+
+('HE161106','CSD201_as',1),
+('HE161106','CSD201_fe',0),
+('HE161106','CSD201_pe',0),
+('HE161106','CSD201_pt',1),
+('HE161106','DBI202_as',0),
+('HE161106','DBI202_fe',0),
+('HE161106','DBI202_lab',1),
+('HE161106','DBI202_pe',0),
+('HE161106','DBI202_pt',1),
+('HE161106','JPD113_fe',0),
+('HE161106','JPD113_mt',1),
+('HE161106','JPD113_pt',1),
+('HE161106','JPD113_ptcpt',1),
+('HE161106','LAB211_pratices',1),
+
+('HE160307','CSD201_as',1),
+('HE160307','CSD201_fe',0),
+('HE160307','CSD201_pe',0),
+('HE160307','CSD201_pt',1),
+('HE160307','DBI202_as',1),
+('HE160307','DBI202_fe',0),
+('HE160307','DBI202_lab',1),
+('HE160307','DBI202_pe',0),
+('HE160307','DBI202_pt',1),
+('HE160307','JPD113_fe',0),
+('HE160307','JPD113_mt',1),
+('HE160307','JPD113_pt',1),
+('HE160307','JPD113_ptcpt',1),
+('HE160307','LAB211_pratices',1),
+
+('HE163693','CSD201_as',1),
+('HE163693','CSD201_fe',0),
+('HE163693','CSD201_pe',0),
+('HE163693','CSD201_pt',1),
+('HE163693','DBI202_as',0),
+('HE163693','DBI202_fe',0),
+('HE163693','DBI202_lab',1),
+('HE163693','DBI202_pe',0),
+('HE163693','DBI202_pt',1),
+('HE163693','JPD113_fe',0),
+('HE163693','JPD113_mt',1),
+('HE163693','JPD113_pt',1),
+('HE163693','JPD113_ptcpt',0),
+('HE163693','LAB211_pratices',0),
+
+('HE161198','CSD201_as',1),
+('HE161198','CSD201_fe',0),
+('HE161198','CSD201_pe',0),
+('HE161198','CSD201_pt',1),
+('HE161198','DBI202_as',0),
+('HE161198','DBI202_fe',0),
+('HE161198','DBI202_lab',1),
+('HE161198','DBI202_pe',0),
+('HE161198','DBI202_pt',1),
+('HE161198','JPD113_fe',0),
+('HE161198','JPD113_mt',1),
+('HE161198','JPD113_pt',0),
+('HE161198','JPD113_ptcpt',0),
+('HE161198','LAB211_pratices',1),
+
+('HE161665','CSD201_as',1),
+('HE161665','CSD201_fe',0),
+('HE161665','CSD201_pe',0),
+('HE161665','CSD201_pt',1),
+('HE161665','DBI202_as',0),
+('HE161665','DBI202_fe',0),
+('HE161665','DBI202_lab',1),
+('HE161665','DBI202_pe',0),
+('HE161665','DBI202_pt',1),
+('HE161665','JPD113_fe',0),
+('HE161665','JPD113_mt',1),
+('HE161665','JPD113_pt',1),
+('HE161665','JPD113_ptcpt',1),
+('HE161665','LAB211_pratices',0),
+
+('HE161890','CSD201_as',1),
+('HE161890','CSD201_fe',0),
+('HE161890','CSD201_pe',0),
+('HE161890','CSD201_pt',1),
+('HE161890','DBI202_as',1),
+('HE161890','DBI202_fe',0),
+('HE161890','DBI202_lab',1),
+('HE161890','DBI202_pe',0),
+('HE161890','DBI202_pt',1),
+('HE161890','JPD113_fe',0),
+('HE161890','JPD113_mt',1),
+('HE161890','JPD113_pt',1),
+('HE161890','JPD113_ptcpt',1),
+('HE161890','LAB211_pratices',1),
+
+('HE163581','CSD201_as',1),
+('HE163581','CSD201_fe',0),
+('HE163581','CSD201_pe',0),
+('HE163581','CSD201_pt',1),
+('HE163581','DBI202_as',1),
+('HE163581','DBI202_fe',0),
+('HE163581','DBI202_lab',1),
+('HE163581','DBI202_pe',0),
+('HE163581','DBI202_pt',1),
+('HE163581','JPD113_fe',0),
+('HE163581','JPD113_mt',1),
+('HE163581','JPD113_pt',1),
+('HE163581','JPD113_ptcpt',0),
+('HE163581','LAB211_pratices',1)
+select * from Process
+select * from Assessment
+select * from Result
+--11 INSERT RESULT
+INSERT INTO Result
+VALUES
+('HE160136',1,'2022-06-26',8,1),
+('HE160136',2,'2022-08-05',NULL,0),
+('HE160136',3,'2022-07-30',NULL,0),
+('HE160136',4,'2022-06-20',8,1),
+('HE160318',1,'2022-06-26',6,1),
+('HE160318',2,'2022-08-05',NULL,0),
+('HE160318',3,'2022-07-30',NULL,0),
+('HE160318',4,'2022-06-20',7.5,1),
+('HE160307',1,'2022-06-26',10,1),
+('HE160307',2,'2022-08-05',NULL,0),
+('HE160307',3,'2022-07-30',NULL,0),
+('HE160594',4,'2022-06-20',5,1),
+('HE160594',1,'2022-06-26',8,1),
+('HE160594',2,'2022-08-05',NULL,0),
+('HE160594',3,'2022-07-30',NULL,0),
+('HE160594',4,'2022-06-20',7.5,1),
+('HE161106',1,'2022-06-26',10,1),
+('HE161106',2,'2022-08-05',NULL,0),
+('HE161106',3,'2022-07-30',NULL,0),
+('HE161106',4,'2022-06-20',9.5,1),
+('HE161198',1,'2022-06-26',6,1),
+('HE161198',2,'2022-08-05',NULL,0),
+('HE161198',3,'2022-07-30',NULL,0),
+('HE161198',4,'2022-06-20',7,1),
+('HE161665',1,'2022-06-26',5,1),
+('HE161665',2,'2022-08-05',NULL,0),
+('HE161665',3,'2022-07-30',NULL,0),
+('HE161665',4,'2022-06-20',6.5,1),
+('HE161890',1,'2022-06-26',7,1),
+('HE161890',2,'2022-08-05',NULL,0),
+('HE161890',3,'2022-07-30',NULL,0),
+('HE161890',4,'2022-06-20',8.5,1),
+('HE163581',1,'2022-06-26',9,1),
+('HE163581',2,'2022-08-05',NULL,0),
+('HE163581',3,'2022-07-30',NULL,0),
+('HE163581',4,'2022-06-20',9.5,1),
+('HE163693',1,'2022-06-26',8,1),
+('HE163693',2,'2022-08-05',NULL,0),
+('HE163693',3,'2022-07-30',NULL,0),
+('HE163693',4,'2022-06-20',8,1),
+--dbi
+('HE160136',5,'2022-08-02',NULL,0),
+('HE160136',6,'2022-08-27',NULL,0),
+('HE160136',7,'2022-06-20',7,1),
+('HE160136',8,'2022-07-30',NULL,0),
+('HE160136',9,'2022-06-28',6.5,1),
+('HE160318',5,'2022-08-02',NULL,0),
+('HE160318',6,'2022-08-27',NULL,0),
+('HE160318',7,'2022-06-20',7.5,1),
+('HE160318',8,'2022-07-30',NULL,0),
+('HE160318',9,'2022-06-28',7.5,1),
+('HE160307',5,'2022-08-02',NULL,0),
+('HE160307',6,'2022-08-27',NULL,0),
+('HE160307',7,'2022-06-20',6,1),
+('HE160307',8,'2022-07-30',NULL,0),
+('HE160307',9,'2022-06-28',7,1),
+('HE160594',5,'2022-08-02',NULL,0),
+('HE160594',6,'2022-08-27',NULL,0),
+('HE160594',7,'2022-06-20',7,1),
+('HE160594',8,'2022-07-30',NULL,0),
+('HE160594',9,'2022-06-28',7,1),
+('HE161106',5,'2022-08-02',NULL,0),
+('HE161106',6,'2022-08-27',NULL,0),
+('HE161106',7,'2022-06-20',9,1),
+('HE161106',8,'2022-07-30',NULL,0),
+('HE161106',9,'2022-06-28',8,1),
+('HE161198',5,'2022-08-02',NULL,0),
+('HE161198',6,'2022-08-27',NULL,0),
+('HE161198',7,'2022-06-20',7,1),
+('HE161198',8,'2022-07-30',NULL,0),
+('HE161198',9,'2022-06-28',6.5,1),
+('HE161665',5,'2022-08-02',NULL,0),
+('HE161665',6,'2022-08-27',NULL,0),
+('HE161665',7,'2022-06-20',5,1),
+('HE161665',8,'2022-07-30',NULL,0),
+('HE161665',9,'2022-06-28',5.5,1),
+('HE161890',5,'2022-08-02',NULL,0),
+('HE161890',6,'2022-08-27',NULL,0),
+('HE161890',7,'2022-06-20',7,1),
+('HE161890',8,'2022-07-30',NULL,0),
+('HE161890',9,'2022-06-28',6.5,1),
+('HE163581',5,'2022-08-02',NULL,0),
+('HE163581',6,'2022-08-27',NULL,0),
+('HE163581',7,'2022-06-20',9,1),
+('HE163581',8,'2022-07-30',NULL,0),
+('HE163581',9,'2022-06-28',10,1),
+('HE163693',5,'2022-08-02',NULL,0),
+('HE163693',6,'2022-08-27',NULL,0),
+('HE163693',7,'2022-06-20',8,1),
+('HE163693',8,'2022-07-30',NULL,0),
+('HE163693',9,'2022-06-28',9,1),
+--JPD
+(10,'vandt',10,'2022-07-31',NULL,0),
+(11,'vandt',11,'2022-06-16',9.75,1),
+(12,'vandt',12,'2022-05-23',8.5,1),
+(13,'vandt',13,'2022-07-21',10,1),
+(24,'vandt',10,'2022-07-31',NULL,0),
+(25,'vandt',11,'2022-06-16',6.75,1),
+(26,'vandt',12,'2022-05-23',5.5,1),
+(27,'vandt',13,'2022-07-21',8,1),
+(38,'vandt',10,'2022-07-31',NULL,0),
+(39,'vandt',11,'2022-06-16',5.75,1),
+(40,'vandt',12,'2022-05-23',4.5,1),
+(41,'vandt',13,'2022-07-21',7,1),
+(52,'vandt',10,'2022-07-31',NULL,0),
+(53,'vandt',11,'2022-06-16',9.5,1),
+(54,'vandt',12,'2022-05-23',8.75,1),
+(55,'vandt',13,'2022-07-21',10,1),
+(68,'vandt',10,'2022-07-31',NULL,0),
+(69,'vandt',11,'2022-06-16',8,1),
+(70,'vandt',12,'2022-05-23',7.75,1),
+(71,'vandt',13,'2022-07-21',10,1),
+(82,'vandt',10,'2022-07-31',NULL,0),
+(82,'vandt',11,'2022-06-16',7,1),
+(84,'vandt',12,'2022-05-23',6.75,1),
+(85,'vandt',13,'2022-07-21',7.5,1),
+(96,'vandt',10,'2022-07-31',NULL,0),
+(97,'vandt',11,'2022-06-16',5,1),
+(98,'vandt',12,'2022-05-23',5.75,1),
+(99,'vandt',13,'2022-07-21',6.5,1),
+(110,'vandt',10,'2022-07-31',NULL,0),
+(111,'vandt',11,'2022-06-16',6,1),
+(112,'vandt',12,'2022-05-23',6.75,1),
+(113,'vandt',13,'2022-07-21',7,1),
+(124,'vandt',10,'2022-07-31',NULL,0),
+(125,'vandt',11,'2022-06-16',10,1),
+(126,'vandt',12,'2022-05-23',8.75,1),
+(127,'vandt',13,'2022-07-21',10,1),
+(138,'vandt',10,'2022-07-31',NULL,0),
+(139,'vandt',11,'2022-06-16',5,1),
+(140,'vandt',12,'2022-05-23',4.75,1),
+(141,'vandt',13,'2022-07-21',7,1),
+--LAB
+(14,'NangNTH',14,'2022-07-22',660,0),
+(28,'NangNTH',14,'2022-07-22',570,0),
+(42,'NangNTH',14,'2022-07-22',420,0),
+(56,'NangNTH',14,'2022-07-22',725,0),
+(72,'NangNTH',14,'2022-07-22',760,1),
+(86,'NangNTH',14,'2022-07-22',550,0),
+(100,'NangNTH',14,'2022-07-22',773,1),
+(114,'NangNTH',14,'2022-07-22',60,0),
+(128,'NangNTH',14,'2022-07-22',750,1),
+(142,'NangNTH',14,'2022-07-22',752,1),
+--WED
+(57,'TungHT22',15,'2022-08-29',NULL,0),
+(58,'TungHT22',16,'2022-07-21',NULL,0)
+
+SELECT * FROM Result
